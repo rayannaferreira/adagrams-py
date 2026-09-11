@@ -43,8 +43,28 @@ def draw_letters():
     return letters
     
 
-def uses_available_letters(word, letter_bank):
-    pass
+def uses_available_letters(word, letter_bank): 
+    word= word.upper()#convert all leters in a string uppercase 
+    frequences = {} # create a frequency dictionary
+    for letter in letter_bank:
+        if letter in frequences:
+                frequences[letter] +=1
+        else:
+                frequences[letter] =1
+
+    # verify if there is the letter and if it respects the frequency
+    for letter in word:
+        print("dicionario de frequencias: ", frequences)
+        if letter in frequences:
+            if frequences[letter] >0:
+                frequences[letter] -=1
+            else:
+                return False
+        else:
+                return False
+        
+    return True
+
 
     
 def score_word(word):
