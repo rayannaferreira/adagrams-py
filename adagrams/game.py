@@ -1,5 +1,40 @@
 from random import randint
 
+LETTER_SCORES = {
+    "A": 1,
+    "E": 1,
+    "I": 1,
+    "O": 1,
+    "U": 1,
+    "L": 1,
+    "N": 1,
+    "R": 1,
+    "S": 1,
+    "T": 1,
+
+    "D": 2,
+    "G": 2,
+
+    "B": 3,
+    "C": 3,
+    "M": 3,
+    "P": 3,
+
+    "F": 4,
+    "H": 4,
+    "V": 4,
+    "W": 4,
+    "Y": 4,
+
+    "K": 5,
+
+    "J": 8,
+    "X": 8,
+
+    "Q": 10,
+    "Z": 10
+}
+
 LETTER_POOL = {
     'A': 9,
     'B': 2,
@@ -66,9 +101,15 @@ def uses_available_letters(word, letter_bank):
     return True
 
 
-    
 def score_word(word):
-    pass
+    word= word.upper()
+    score= 0
+    for letter in word:
+        if letter in LETTER_SCORES:
+            score += LETTER_SCORES[letter]
+    if len(word) >= 7 and len(word) <= 10:
+        score +=8
+    return score
 
 
 def get_highest_word_score(word_list):
