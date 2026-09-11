@@ -102,15 +102,28 @@ def uses_available_letters(word, letter_bank):
 
 
 def score_word(word):
-    word= word.upper()
+    word= word.upper()#convert all leters in a string uppercase 
     score= 0
     for letter in word:
-        if letter in LETTER_SCORES:
+        if letter in LETTER_SCORES:#if the letter is in LETTER_SCORES, add its score
             score += LETTER_SCORES[letter]
-    if len(word) >= 7 and len(word) <= 10:
+    if len(word) >= 7 and len(word) <= 10:# Check if the word has between 7 and 10 letters
         score +=8
     return score
 
 
 def get_highest_word_score(word_list):
-    pass
+    winning_word= ""
+    winning_score= 0
+    for word in word_list:# Check each word in the list
+        if score_word(word) >  winning_score:
+            winning_score = score_word(word)
+            winning_word = word
+            
+        elif score_word (word)== winning_score:
+            if len(word) == 10 and len(winning_word)!= 10:# Prefer a 10 letter word when the scores are the same
+                winning_word = word # Update the winning word
+            elif len(word) < len(winning_word) and len(winning_word)!= 10:
+                winning_word = word
+
+    return (winning_word,winning_score)
