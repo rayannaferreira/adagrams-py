@@ -89,7 +89,6 @@ def uses_available_letters(word, letter_bank):
 
     # verify if there is the letter and if it respects the frequency
     for letter in word:
-        print("dicionario de frequencias: ", frequences)
         if letter in frequences:
             if frequences[letter] >0:
                 frequences[letter] -=1
