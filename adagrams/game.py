@@ -66,6 +66,7 @@ def draw_letters():
     for letter, quantity in LETTER_POOL.items():
         for _ in range(quantity):
             pool.append(letter)
+            
     while len(letters) < 10: 
         position = randint(0, len(pool) - 1)
         letter = pool[position]
@@ -75,20 +76,18 @@ def draw_letters():
     return letters
     
 
-def uses_available_letters(word, letter_bank): 
-    frequences = {} 
+def uses_available_letters(word, letter_bank):
+    frequences = {}
+
     for letter in letter_bank:
         frequences[letter] = frequences.get(letter, 0) + 1
 
     for letter in word.upper():
-        if letter in frequences:
-            if frequences[letter] > 0:
-                frequences[letter] -= 1
-            else:
-                return False
-        else:
-                return False
-        
+        if letter not in frequences or frequences[letter] == 0:
+            return False
+
+        frequences[letter] -= 1
+
     return True
 
 
@@ -105,15 +104,18 @@ def score_word(word):
 def get_highest_word_score(word_list):
     winning_word = ""
     winning_score = 0
+
     for word in word_list:
-        if score_word(word) >  winning_score:
-            winning_score = score_word(word)
+        current_score = score_word(word)
+
+        if current_score > winning_score:
+            winning_score = current_score
             winning_word = word
-            
-        elif score_word (word) == winning_score:
-            if len(word) == 10 and len(winning_word)!= 10:
-                winning_word = word 
-            elif len(word) < len(winning_word) and len(winning_word)!= 10:
+
+        elif current_score == winning_score:
+            if len(word) == 10 and len(winning_word) != 10:
+                winning_word = word
+            elif len(word) < len(winning_word) and len(winning_word) != 10:
                 winning_word = word
 
-    return (winning_word,winning_score)
+    return (winning_word, winning_score)
